@@ -17,18 +17,18 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 <style>
   .hdr { position: fixed; inset: 0 0 auto 0; z-index: 50; transition: background .3s, box-shadow .3s; }
-  .hdr.solid { background: rgba(11,16,51,.88); backdrop-filter: blur(14px); box-shadow: 0 6px 30px rgba(0,0,0,.25); }
+  .hdr.solid { background: rgba(26,120,184,.88); backdrop-filter: blur(14px); box-shadow: 0 6px 30px rgba(0,0,0,.25); }
   .bar { display: flex; align-items: center; justify-content: space-between; height: 72px; }
   .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; color: #fff; font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; }
   nav { display: flex; gap: .3rem; }
-  nav a { color: #e8eaff; text-decoration: none; padding: .5rem .8rem; border-radius: 999px; font-size: .92rem; font-weight: 500; transition: background .2s, color .2s; }
+  nav a { color: #ffffff; text-decoration: none; padding: .5rem .8rem; border-radius: 999px; font-size: .92rem; font-weight: 500; transition: background .2s, color .2s; }
   nav a:hover { background: rgba(255,255,255,.1); }
   nav a.active { color: var(--night); background: var(--gold); }
   .burger { display: none; background: none; border: 0; width: 44px; height: 44px; cursor: pointer; }
   .burger span { display: block; width: 24px; height: 2px; background: #fff; margin: 5px auto; transition: transform .3s, opacity .3s; }
   @media (max-width: 960px) {
     .burger { display: block; }
-    nav { position: fixed; inset: 72px 0 auto 0; flex-direction: column; background: rgba(11,16,51,.97); padding: 1rem 1.25rem 2rem; gap: .2rem;
+    nav { position: fixed; inset: 72px 0 auto 0; flex-direction: column; background: rgba(26,120,184,.97); padding: 1rem 1.25rem 2rem; gap: .2rem;
       transform: translateY(-120%); transition: transform .35s ease; }
     nav.open { transform: none; }
     nav a { font-size: 1.1rem; padding: .8rem 1rem; }

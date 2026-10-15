@@ -92,7 +92,7 @@ const featured = schedule.filter((a) => a.day === 'Domingo').slice(0, 1).concat(
 
 <style>
   .hero { position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden; color: #fff; text-align: center;
-    background: radial-gradient(90% 80% at 50% 0%, #4a36a8 0%, var(--night-2) 42%, var(--night) 100%); padding: 7rem 0 5rem; }
+    background: radial-gradient(90% 80% at 50% 0%, #7dcbf5 0%, var(--night-2) 42%, var(--night) 100%); padding: 7rem 0 5rem; }
   .halo { position: absolute; top: -20%; left: 50%; width: 70vmax; height: 70vmax; transform: translateX(-50%);
     background: radial-gradient(circle, rgba(255,233,168,.55), rgba(242,199,92,.12) 35%, transparent 62%); pointer-events: none; filter: blur(10px); }
   .inner { position: relative; z-index: 2; }
@@ -102,10 +102,10 @@ const featured = schedule.filter((a) => a.day === 'Domingo').slice(0, 1).concat(
   @keyframes glowpulse { to { filter: drop-shadow(0 0 18px var(--gold-soft)); } }
   h1 { text-shadow: 0 0 50px rgba(242,199,92,.45); margin-bottom: .3em; }
   h1 em { font-style: italic; color: var(--gold-soft); }
-  .lead { color: #d6d9ff; margin: 0 auto 2rem; }
+  .lead { color: #eaf6ff; margin: 0 auto 2rem; }
   .cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
   blockquote { margin: 3.5rem auto 0; max-width: 46ch; font-family: var(--font-display); font-style: italic; font-size: 1.35rem; color: var(--gold-soft); }
-  cite { display: block; font-style: normal; font-family: var(--font-body); font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; margin-top: .6rem; color: #b9bde6; }
+  cite { display: block; font-style: normal; font-family: var(--font-body); font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; margin-top: .6rem; color: #eaf6ff; }
   .scroll { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); color: var(--gold); font-size: 2rem; text-decoration: none; animation: bob 2s infinite; z-index: 2; }
   @keyframes bob { 50% { transform: translate(-50%, 8px); } }
   .welcome { align-items: center; }
@@ -115,6 +115,6 @@ const featured = schedule.filter((a) => a.day === 'Domingo').slice(0, 1).concat(
   @keyframes pulse { to { transform: scale(1.06); box-shadow: 0 0 90px rgba(242,199,92,.6), 0 0 180px rgba(242,199,92,.4); } }
   .pray { background: linear-gradient(135deg, var(--royal), var(--night)); color: #fff; overflow: hidden; }
   .pray .container { position: relative; z-index: 1; }
-  .pray .lead { color: #d6d9ff; margin: 0 auto 2rem; }
+  .pray .lead { color: #eaf6ff; margin: 0 auto 2rem; }
   @media (prefers-reduced-motion: reduce) { .orb, .scroll, .cross { animation: none; stroke-dashoffset: 0; } }
 </style>

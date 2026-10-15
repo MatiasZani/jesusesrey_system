@@ -36,11 +36,11 @@ const byDay = days.map((d) => ({ day: d, items: schedule.filter((a) => a.day ===
 
 <style>
   .week { display: grid; gap: 1.2rem; }
-  .day { display: grid; grid-template-columns: 200px 1fr; background: #fff; border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(59,42,140,.08); box-shadow: 0 10px 40px -22px rgba(11,16,51,.3); }
+  .day { display: grid; grid-template-columns: 200px 1fr; background: #fff; border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(26,120,184,.08); box-shadow: 0 10px 40px -22px rgba(26,120,184,.3); }
   .dayname { background: linear-gradient(160deg, var(--royal), var(--night)); color: var(--gold-soft); font-family: var(--font-display); font-size: 2rem; font-weight: 600; padding: 2rem 1.5rem; display: grid; align-items: center; }
   .list { padding: 1rem 1.5rem; display: grid; gap: .3rem; }
   .act { display: grid; grid-template-columns: 110px 1fr; gap: 1rem; align-items: center; padding: 1rem 0; }
-  .act + .act { border-top: 1px dashed rgba(59,42,140,.2); }
+  .act + .act { border-top: 1px dashed rgba(26,120,184,.2); }
   .time { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: var(--royal); }
   .time small { font-size: .9rem; font-family: var(--font-body); color: var(--muted); font-weight: 500; }
   .act h3 { font-size: 1.4rem; margin: 0; }
