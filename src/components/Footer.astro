@@ -25,7 +25,10 @@ import { nav, site } from '../data/site';
       </ul>
     </div>
   </div>
-  <div class="container copy">© {new Date().getFullYear()} {site.name}. Todo para la gloria de Dios.</div>
+  <div class="container copy">
+    <span>© {new Date().getFullYear()} {site.name}. Todo para la gloria de Dios.</span>
+    <span>Desarrollado por <a href="https://www.linkedin.com/in/matias-manzanzani/" target="_blank" rel="noopener noreferrer">Matias Manzanzani</a></span>
+  </div>
 </footer>
 
 <style>
@@ -38,6 +41,9 @@ import { nav, site } from '../data/site';
   ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
   a { text-decoration: none; color: #d8dbff; }
   a:hover { color: var(--gold); }
-  .copy { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.1); font-size: .85rem; color: #8b90c8; }
+  .copy { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.1); font-size: .85rem; color: #8b90c8;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1.5rem; }
+  .copy a { color: var(--gold); }
+  .copy a:hover { color: var(--gold-soft); text-decoration: underline; }
   @media (max-width: 800px) { .top { grid-template-columns: 1fr; } }
 </style>
