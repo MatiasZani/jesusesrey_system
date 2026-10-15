@@ -1,12 +1,15 @@
 ---
+import Particles from './Particles.astro';
 const { eyebrow, title, lead } = Astro.props;
+const words = String(title).split(' ');
 ---
 <section class="hero">
-  <div class="stars"></div><div class="rays"></div>
+  <div class="stars"></div><div class="rays"></div><div class="halo" data-parallax="0.25"></div>
+  <Particles count={35} />
   <div class="container center">
-    <span class="eyebrow">{eyebrow}</span>
-    <h1>{title}</h1>
-    {lead && <p class="lead">{lead}</p>}
+    <span class="eyebrow intro" style="--i:0">{eyebrow}</span>
+    <h1>{words.map((w, i) => <span class="w" style={`--i:${i + 1}`}>{w}</span>)}</h1>
+    {lead && <p class="lead intro" style={`--i:${words.length + 2}`}>{lead}</p>}
   </div>
 </section>
 
@@ -15,5 +18,9 @@ const { eyebrow, title, lead } = Astro.props;
     background: radial-gradient(100% 120% at 50% 0%, #3b2a8c 0%, var(--night-2) 45%, var(--night) 100%); }
   h1 { font-size: clamp(2.6rem, 7vw, 5rem); }
   .lead { color: #cfd2f5; }
-  .container { position: relative; z-index: 1; }
+  .container { position: relative; z-index: 2; }
+  .halo { position: absolute; top: -45%; left: 50%; width: 60vmax; height: 60vmax; transform: translateX(-50%); pointer-events: none;
+    background: radial-gradient(circle, rgba(255,233,168,.4), rgba(242,199,92,.08) 38%, transparent 62%); animation: breathe 7s ease-in-out infinite alternate; }
+  @keyframes breathe { to { opacity: .6; scale: 1.12; } }
+  @media (prefers-reduced-motion: reduce) { .halo { animation: none; } }
 </style>

@@ -1,20 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
+import Particles from '../components/Particles.astro';
 import { site, schedule, ministries, events } from '../data/site';
 const featured = schedule.filter((a) => a.day === 'Domingo').slice(0, 1).concat(schedule.filter((a) => a.day !== 'Domingo').slice(0, 2));
 ---
 <Base>
   <section class="hero">
-    <div class="stars"></div><div class="rays"></div><div class="halo"></div>
+    <div class="stars"></div><div class="rays"></div><div class="halo" data-parallax="0.3"></div>
+    <Particles count={70} />
     <div class="container center inner">
-      <span class="eyebrow">{site.city}</span>
-      <h1>Jesús es <em>Rey</em></h1>
-      <p class="lead">{site.tagline}. Te esperamos con los brazos abiertos.</p>
-      <div class="cta">
+      <svg class="cross" viewBox="0 0 40 60" aria-hidden="true"><path d="M20 2v56M6 20h28" /></svg>
+      <span class="eyebrow intro" style="--i:0">{site.city}</span>
+      <h1><span class="w" style="--i:1">Jesús</span> <span class="w" style="--i:2">es</span> <span class="w shimmer" style="--i:3"><em>Rey</em></span></h1>
+      <p class="lead intro" style="--i:5">{site.tagline}. Te esperamos con los brazos abiertos.</p>
+      <div class="cta intro" style="--i:6">
         <a class="btn btn-gold" href="/horarios">Ver horarios</a>
         <a class="btn btn-ghost" href="/contacto">Visitanos</a>
       </div>
-      <blockquote>“{site.verse.text}”<cite>{site.verse.ref}</cite></blockquote>
+      <blockquote class="intro" style="--i:8">“{site.verse.text}”<cite>{site.verse.ref}</cite></blockquote>
     </div>
     <a href="#bienvenida" class="scroll" aria-label="Bajar">⌄</a>
   </section>
@@ -93,6 +96,10 @@ const featured = schedule.filter((a) => a.day === 'Domingo').slice(0, 1).concat(
   .halo { position: absolute; top: -20%; left: 50%; width: 70vmax; height: 70vmax; transform: translateX(-50%);
     background: radial-gradient(circle, rgba(255,233,168,.55), rgba(242,199,92,.12) 35%, transparent 62%); pointer-events: none; filter: blur(10px); }
   .inner { position: relative; z-index: 2; }
+  .cross { width: 38px; margin: 0 auto 1.4rem; fill: none; stroke: var(--gold); stroke-width: 3; stroke-linecap: round;
+    stroke-dasharray: 130; stroke-dashoffset: 130; animation: draw 2s .2s ease forwards, glowpulse 4s 2.2s ease-in-out infinite alternate; filter: drop-shadow(0 0 8px var(--gold)); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes glowpulse { to { filter: drop-shadow(0 0 18px var(--gold-soft)); } }
   h1 { text-shadow: 0 0 50px rgba(242,199,92,.45); margin-bottom: .3em; }
   h1 em { font-style: italic; color: var(--gold-soft); }
   .lead { color: #d6d9ff; margin: 0 auto 2rem; }
@@ -109,5 +116,5 @@ const featured = schedule.filter((a) => a.day === 'Domingo').slice(0, 1).concat(
   .pray { background: linear-gradient(135deg, var(--royal), var(--night)); color: #fff; overflow: hidden; }
   .pray .container { position: relative; z-index: 1; }
   .pray .lead { color: #d6d9ff; margin: 0 auto 2rem; }
-  @media (prefers-reduced-motion: reduce) { .orb, .scroll { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .orb, .scroll, .cross { animation: none; stroke-dashoffset: 0; } }
 </style>

@@ -16,5 +16,7 @@ const tiles = Array.from({ length: 9 }, (_, i) => i);
   .masonry { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
   .tile { border-radius: var(--radius); display: grid; place-items: center; color: rgba(242,199,92,.6); font-size: 2rem; min-height: 220px;
     background: radial-gradient(circle at 30% 20%, var(--royal), var(--night)); }
+  .tile { transition: transform .5s, box-shadow .5s; } .tile:hover { transform: scale(1.03); box-shadow: var(--glow); }
+  .tile span { animation: floaty 3s ease-in-out infinite alternate; }
   .t0 { min-height: 300px; } .t2 { min-height: 260px; }
 </style>
