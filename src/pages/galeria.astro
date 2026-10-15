@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+const tiles = Array.from({ length: 9 }, (_, i) => i);
+---
+<Base title="Galería" description="Fotos de la vida de la Iglesia Jesús es Rey.">
+  <PageHero eyebrow="Galería" title="Momentos que atesoramos" lead="Pronto vas a ver aquí fotos de nuestras reuniones y eventos." />
+  <section class="section">
+    <div class="container masonry">
+      {tiles.map((i) => <div class:list={['tile reveal', `t${i % 4}`]} aria-label="Foto próximamente"><span>✦</span></div>)}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .masonry { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .tile { border-radius: var(--radius); display: grid; place-items: center; color: rgba(242,199,92,.6); font-size: 2rem; min-height: 220px;
+    background: radial-gradient(circle at 30% 20%, var(--royal), var(--night)); }
+  .t0 { min-height: 300px; } .t2 { min-height: 260px; }
+</style>

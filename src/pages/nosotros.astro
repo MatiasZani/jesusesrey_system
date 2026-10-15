@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { beliefs, site } from '../data/site';
+const leaders = [
+  { name: 'Pastor principal', role: 'Pastor' },
+  { name: 'Pastora', role: 'Pastora' },
+  { name: 'Líder de alabanza', role: 'Alabanza' },
+  { name: 'Líder de jóvenes', role: 'Jóvenes' },
+];
+---
+<Base title="Nosotros" description="Conocé nuestra misión, visión, creencias y liderazgo.">
+  <PageHero eyebrow="Sobre nosotros" title="Quiénes somos" lead={`${site.name}, una familia de fe en ${site.city}.`} />
+
+  <section class="section">
+    <div class="container grid cols-3">
+      {[['Misión', 'Contenido a completar: por qué existimos como iglesia.'], ['Visión', 'Contenido a completar: lo que soñamos para nuestra ciudad.'], ['Valores', 'Contenido a completar: lo que nos define como familia.']].map(([t, d]) => (
+        <div class="card reveal center"><h3>{t}</h3><p>{d}</p></div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="stars"></div>
+    <div class="container center">
+      <span class="eyebrow">Lo que creemos</span>
+      <h2>Nuestras creencias</h2>
+      <div class="divider">✦</div>
+      <div class="grid cols-3">
+        {beliefs.map((b) => <div class="card reveal"><h3>{b.name}</h3><p>{b.desc}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container center">
+      <span class="eyebrow">Liderazgo</span>
+      <h2>Quienes nos guían</h2>
+      <div class="divider">✦</div>
+      <div class="grid cols-4">
+        {leaders.map((l) => (
+          <div class="reveal">
+            <div class="avatar" aria-hidden="true">✝</div>
+            <h3>{l.name}</h3><p class="muted">{l.role}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .avatar { width: 150px; aspect-ratio: 1; margin: 0 auto 1rem; border-radius: 50%; display: grid; place-items: center; font-size: 3rem; color: var(--gold);
+    background: radial-gradient(circle at 30% 25%, var(--royal), var(--night)); box-shadow: 0 0 0 4px var(--gold-soft), var(--glow); }
+</style>

@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+---
+<Base title="Contacto" description="Contactanos, visitanos o pedí oración.">
+  <PageHero eyebrow="Contacto" title="Te esperamos" lead="Escribinos, visitanos o dejanos tu pedido de oración." />
+  <section class="section">
+    <div class="container grid cols-2">
+      <div class="reveal">
+        <h2>Dónde estamos</h2>
+        <p><strong>{site.address}</strong></p>
+        <p><a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+        <p><a class="btn btn-dark" href={`https://wa.me/${site.whatsapp}`}>Escribinos por WhatsApp</a></p>
+        <div class="map" role="img" aria-label="Mapa próximamente">Mapa próximamente</div>
+      </div>
+      <form class="card reveal" id="oracion">
+        <h2>Pedido de oración o consulta</h2>
+        <div class="field"><label for="n">Nombre</label><input id="n" required autocomplete="name" /></div>
+        <div class="field"><label for="m">Mensaje</label><textarea id="m" rows="5" required></textarea></div>
+        <button class="btn btn-gold" type="submit">Enviar por WhatsApp</button>
+        <p class="muted" style="margin:1rem 0 0;font-size:.85rem">Se abrirá WhatsApp con tu mensaje listo para enviar.</p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .map { margin-top: 1.5rem; aspect-ratio: 16/10; border-radius: var(--radius); display: grid; place-items: center; color: var(--gold-soft);
+    background: radial-gradient(circle at 30% 20%, var(--royal), var(--night)); }
+</style>
+
+<script define:vars={{ wa: site.whatsapp }}>
+  document.getElementById('oracion').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const n = document.getElementById('n').value;
+    const m = document.getElementById('m').value;
+    window.open(`https://wa.me/${wa}?text=${encodeURIComponent(`Hola, soy ${n}. ${m}`)}`, '_blank', 'noopener');
+  });
+</script>

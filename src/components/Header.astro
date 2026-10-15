@@ -1,0 +1,53 @@
+---
+import Logo from './Logo.astro';
+import { nav, site } from '../data/site';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<header class="hdr" id="hdr">
+  <div class="container bar">
+    <a href="/" class="brand" aria-label={site.name}>
+      <Logo /><span>{site.short}</span>
+    </a>
+    <button class="burger" aria-label="Abrir menú" aria-expanded="false" id="burger"><span></span><span></span><span></span></button>
+    <nav id="menu" aria-label="Principal">
+      {nav.map((n) => <a href={n.href} class:list={[{ active: path === n.href }]}>{n.label}</a>)}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .hdr { position: fixed; inset: 0 0 auto 0; z-index: 50; transition: background .3s, box-shadow .3s; }
+  .hdr.solid { background: rgba(11,16,51,.88); backdrop-filter: blur(14px); box-shadow: 0 6px 30px rgba(0,0,0,.25); }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; color: #fff; font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; }
+  nav { display: flex; gap: .3rem; }
+  nav a { color: #e8eaff; text-decoration: none; padding: .5rem .8rem; border-radius: 999px; font-size: .92rem; font-weight: 500; transition: background .2s, color .2s; }
+  nav a:hover { background: rgba(255,255,255,.1); }
+  nav a.active { color: var(--night); background: var(--gold); }
+  .burger { display: none; background: none; border: 0; width: 44px; height: 44px; cursor: pointer; }
+  .burger span { display: block; width: 24px; height: 2px; background: #fff; margin: 5px auto; transition: transform .3s, opacity .3s; }
+  @media (max-width: 960px) {
+    .burger { display: block; }
+    nav { position: fixed; inset: 72px 0 auto 0; flex-direction: column; background: rgba(11,16,51,.97); padding: 1rem 1.25rem 2rem; gap: .2rem;
+      transform: translateY(-120%); transition: transform .35s ease; }
+    nav.open { transform: none; }
+    nav a { font-size: 1.1rem; padding: .8rem 1rem; }
+    .burger[aria-expanded='true'] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+    .burger[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+</style>
+
+<script>
+  const hdr = document.getElementById('hdr')!;
+  const burger = document.getElementById('burger')!;
+  const menu = document.getElementById('menu')!;
+  const onScroll = () => hdr.classList.toggle('solid', window.scrollY > 30);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  burger.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    hdr.classList.add('solid');
+  });
+</script>

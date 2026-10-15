@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { ministries } from '../data/site';
+---
+<Base title="Ministerios" description="Ministerios de la Iglesia Jesús es Rey: niños, jóvenes, mujeres, hombres, alabanza y más.">
+  <PageHero eyebrow="Ministerios" title="Servimos juntos" lead="Cada persona tiene un don. Encontrá dónde podés crecer y servir." />
+  <section class="section">
+    <div class="container grid cols-4">
+      {ministries.map((m) => <div class="card reveal"><div class="icon">{m.icon}</div><h3>{m.name}</h3><p>{m.desc}</p></div>)}
+    </div>
+  </section>
+</Base>

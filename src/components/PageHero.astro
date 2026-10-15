@@ -1,0 +1,19 @@
+---
+const { eyebrow, title, lead } = Astro.props;
+---
+<section class="hero">
+  <div class="stars"></div><div class="rays"></div>
+  <div class="container center">
+    <span class="eyebrow">{eyebrow}</span>
+    <h1>{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+  </div>
+</section>
+
+<style>
+  .hero { position: relative; overflow: hidden; color: #fff; padding: 11rem 0 6rem;
+    background: radial-gradient(100% 120% at 50% 0%, #3b2a8c 0%, var(--night-2) 45%, var(--night) 100%); }
+  h1 { font-size: clamp(2.6rem, 7vw, 5rem); }
+  .lead { color: #cfd2f5; }
+  .container { position: relative; z-index: 1; }
+</style>

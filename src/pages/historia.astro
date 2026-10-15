@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { timeline } from '../data/site';
+---
+<Base title="Historia" description="La historia de la Iglesia Jesús es Rey en San Martín de los Andes.">
+  <PageHero eyebrow="Nuestra historia" title="Lo que Dios ha hecho" lead="Cada iglesia tiene una historia de fe. Esta es la nuestra." />
+  <section class="section">
+    <div class="container line">
+      {timeline.map((t, i) => (
+        <div class:list={['item reveal', { right: i % 2 }]}>
+          <div class="dot"></div>
+          <div class="card"><span class="eyebrow">{t.year}</span><h3>{t.title}</h3><p>{t.desc}</p></div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .line { position: relative; max-width: 860px; display: grid; gap: 2.5rem; }
+  .line::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(var(--gold), transparent); transform: translateX(-50%); }
+  .item { position: relative; width: 50%; padding-right: 3rem; }
+  .item.right { margin-left: 50%; padding-right: 0; padding-left: 3rem; }
+  .dot { position: absolute; top: 2rem; right: -9px; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 6px rgba(242,199,92,.25), var(--glow); }
+  .item.right .dot { right: auto; left: -9px; }
+  @media (max-width: 700px) {
+    .line::before { left: 9px; }
+    .item, .item.right { width: 100%; margin-left: 0; padding: 0 0 0 2.5rem; }
+    .dot, .item.right .dot { left: 0; right: auto; }
+  }
+</style>

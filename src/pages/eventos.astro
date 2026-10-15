@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { events } from '../data/site';
+---
+<Base title="Eventos" description="Próximos eventos y actividades especiales de la iglesia.">
+  <PageHero eyebrow="Eventos" title="Próximos eventos" lead="Conferencias, campamentos y encuentros especiales." />
+  <section class="section">
+    <div class="container grid cols-3">
+      {events.map((e) => <div class="card reveal"><span class="eyebrow">{e.date}</span><h3>{e.name}</h3><p>{e.desc}</p></div>)}
+    </div>
+  </section>
+</Base>

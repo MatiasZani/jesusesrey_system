@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, schedule, ministries, events } from '../data/site';
+const featured = schedule.filter((a) => a.day === 'Domingo').slice(0, 1).concat(schedule.filter((a) => a.day !== 'Domingo').slice(0, 2));
+---
+<Base>
+  <section class="hero">
+    <div class="stars"></div><div class="rays"></div><div class="halo"></div>
+    <div class="container center inner">
+      <span class="eyebrow">{site.city}</span>
+      <h1>Jesús es <em>Rey</em></h1>
+      <p class="lead">{site.tagline}. Te esperamos con los brazos abiertos.</p>
+      <div class="cta">
+        <a class="btn btn-gold" href="/horarios">Ver horarios</a>
+        <a class="btn btn-ghost" href="/contacto">Visitanos</a>
+      </div>
+      <blockquote>“{site.verse.text}”<cite>{site.verse.ref}</cite></blockquote>
+    </div>
+    <a href="#bienvenida" class="scroll" aria-label="Bajar">⌄</a>
+  </section>
+
+  <section class="section" id="bienvenida">
+    <div class="container grid cols-2 welcome">
+      <div class="reveal">
+        <span class="eyebrow">Bienvenido</span>
+        <h2>Un lugar para encontrarte con Dios</h2>
+        <p class="lead muted">Somos una familia de fe en la Patagonia. Aquí hay un lugar para vos, sin importar de dónde vengas ni cómo estés.</p>
+        <a class="btn btn-dark" href="/nosotros">Conocé quiénes somos</a>
+      </div>
+      <div class="reveal orb-wrap" aria-hidden="true"><div class="orb"></div></div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="stars"></div>
+    <div class="container center">
+      <span class="eyebrow">Reuniones</span>
+      <h2>Vení a compartir con nosotros</h2>
+      <div class="divider">✦</div>
+      <div class="grid cols-3">
+        {featured.map((a) => (
+          <div class="card reveal">
+            <span class="eyebrow">{a.day} · {a.time} hs</span>
+            <h3>{a.name}</h3>
+            <p>{a.desc}</p>
+          </div>
+        ))}
+      </div>
+      <p style="margin-top:2rem"><a class="btn btn-gold" href="/horarios">Todos los horarios</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container center">
+      <span class="eyebrow">Ministerios</span>
+      <h2>Hay un lugar para cada uno</h2>
+      <div class="divider">✦</div>
+      <div class="grid cols-4">
+        {ministries.slice(0, 4).map((m) => (
+          <div class="card reveal"><div class="icon">{m.icon}</div><h3>{m.name}</h3><p>{m.desc}</p></div>
+        ))}
+      </div>
+      <p style="margin-top:2rem"><a class="btn btn-dark" href="/ministerios">Ver todos</a></p>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="container center">
+      <span class="eyebrow">Próximos eventos</span>
+      <h2>Lo que viene</h2>
+      <div class="divider">✦</div>
+      <div class="grid cols-3">
+        {events.map((e) => (
+          <div class="card reveal"><span class="eyebrow">{e.date}</span><h3>{e.name}</h3><p>{e.desc}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section pray">
+    <div class="rays"></div>
+    <div class="container center reveal">
+      <h2>¿Necesitás oración?</h2>
+      <p class="lead">Nos encantaría orar por vos. Contanos tu pedido y vamos a acompañarte.</p>
+      <a class="btn btn-gold" href="/contacto#oracion">Pedir oración</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden; color: #fff; text-align: center;
+    background: radial-gradient(90% 80% at 50% 0%, #4a36a8 0%, var(--night-2) 42%, var(--night) 100%); padding: 7rem 0 5rem; }
+  .halo { position: absolute; top: -20%; left: 50%; width: 70vmax; height: 70vmax; transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(255,233,168,.55), rgba(242,199,92,.12) 35%, transparent 62%); pointer-events: none; filter: blur(10px); }
+  .inner { position: relative; z-index: 2; }
+  h1 { text-shadow: 0 0 50px rgba(242,199,92,.45); margin-bottom: .3em; }
+  h1 em { font-style: italic; color: var(--gold-soft); }
+  .lead { color: #d6d9ff; margin: 0 auto 2rem; }
+  .cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  blockquote { margin: 3.5rem auto 0; max-width: 46ch; font-family: var(--font-display); font-style: italic; font-size: 1.35rem; color: var(--gold-soft); }
+  cite { display: block; font-style: normal; font-family: var(--font-body); font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; margin-top: .6rem; color: #b9bde6; }
+  .scroll { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); color: var(--gold); font-size: 2rem; text-decoration: none; animation: bob 2s infinite; z-index: 2; }
+  @keyframes bob { 50% { transform: translate(-50%, 8px); } }
+  .welcome { align-items: center; }
+  .orb-wrap { display: grid; place-items: center; }
+  .orb { width: min(340px, 80%); aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff6d6, var(--gold) 45%, #b8862a 100%); box-shadow: var(--glow), 0 0 140px rgba(242,199,92,.5); animation: pulse 6s ease-in-out infinite alternate; }
+  @keyframes pulse { to { transform: scale(1.06); box-shadow: 0 0 90px rgba(242,199,92,.6), 0 0 180px rgba(242,199,92,.4); } }
+  .pray { background: linear-gradient(135deg, var(--royal), var(--night)); color: #fff; overflow: hidden; }
+  .pray .container { position: relative; z-index: 1; }
+  .pray .lead { color: #d6d9ff; margin: 0 auto 2rem; }
+  @media (prefers-reduced-motion: reduce) { .orb, .scroll { animation: none; } }
+</style>
