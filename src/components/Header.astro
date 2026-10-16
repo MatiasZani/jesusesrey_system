@@ -6,7 +6,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 <header class="hdr" id="hdr">
   <div class="container bar">
     <a href="/" class="brand" aria-label={site.name}>
-      <Logo /><span>{site.short}</span>
+      <Logo size={54} />
     </a>
     <button class="burger" aria-label="Abrir menú" aria-expanded="false" id="burger"><span></span><span></span><span></span></button>
     <nav id="menu" aria-label="Principal">
