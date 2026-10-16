@@ -1,5 +1,6 @@
 ---
-import { figures } from '../data/figures';
+import { figures as allFigures } from '../data/figures';
+const figures = allFigures.filter((f) => f.featured);
 import FigureAvatar from './FigureAvatar.astro';
 import { slug } from '../data/timeline';
 const loop = [...figures, ...figures];

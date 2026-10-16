@@ -6,8 +6,15 @@ import { eras, slug } from '../data/timeline';
 
 const byName = new Map(figures.map((f) => [f.name, f]));
 const seen = new Set<string>();
+// people-grid geometry per era: desktop columns/rows and mobile columns/rows
+const grid = (n: number) => {
+  const cols = n <= 2 ? n : n <= 4 ? 2 : n <= 6 ? 3 : 4;
+  const mcols = n <= 4 ? 2 : n <= 6 ? 3 : 4;
+  return { cols, rows: Math.ceil(n / cols), mcols, mrows: Math.ceil(n / mcols) };
+};
 const view = eras.map((e) => ({
   ...e,
+  grid: grid(e.people.length),
   people: e.people.map((p) => {
     const first = !seen.has(p.name);
     if (first) seen.add(p.name);
@@ -61,7 +68,7 @@ const view = eras.map((e) => ({
               </div>
               <div class="folks">
                 <h3 class="hp">Referentes</h3>
-                <div class="people">
+                <div class="people" data-n={e.people.length} style={`--cols:${e.grid.cols};--rows:${e.grid.rows};--mcols:${e.grid.mcols};--mrows:${e.grid.mrows}`}>
                   {e.people.map((p) => p.fig ? (
                     <div class="person" data-slug={p.first ? p.slug : undefined}>
                       <FigureAvatar f={p.fig} />
@@ -118,7 +125,7 @@ const view = eras.map((e) => ({
   .stage { position: relative; min-height: 0; display: flex; padding: clamp(.4rem, 1.5vh, 1rem) 0 clamp(.8rem, 2.4vh, 1.6rem); }
   .viewport { flex: 1; min-width: 0; overflow: hidden; }
   .slides { display: flex; height: 100%; transition: transform .7s cubic-bezier(.65,.05,.25,1); will-change: transform; }
-  .slide { flex: 0 0 100%; min-width: 0; height: 100%; box-sizing: border-box; padding: 0 clamp(3.4rem, 7vw, 6.5rem); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(1rem, 3vw, 3rem); align-items: center; overflow-y: auto; scrollbar-width: thin; }
+  .slide { flex: 0 0 100%; min-width: 0; height: 100%; box-sizing: border-box; padding: 0 clamp(3.4rem, 7vw, 6.5rem); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); gap: clamp(1rem, 3vw, 3rem); align-items: center; overflow-y: auto; scrollbar-width: thin; }
   .slide > * { opacity: 0; transform: translateY(14px); transition: opacity .5s .25s, transform .5s .25s; }
   .app.init .slide > * { transition: none !important; }
   .slide.on > * { opacity: 1; transform: none; }
@@ -139,12 +146,16 @@ const view = eras.map((e) => ({
   .sp p { margin: .5rem 0 0; color: var(--ink); font-size: clamp(.88rem, 2vh, 1.02rem); }
   @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-  .people { display: grid; grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 15vw, 170px), 1fr)); gap: clamp(.5rem, 1.6vh, 1rem); }
-  .person { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .1rem; padding: clamp(.5rem, 1.6vh, 1rem) .6rem; background: #fff; border: 1px solid rgba(26,120,184,.14); border-radius: 18px; box-shadow: 0 10px 26px -20px rgba(26,120,184,.5); }
-  .person :global(svg) { height: clamp(64px, 15vh, 128px); width: auto; }
-  .person strong { font-family: var(--font-display); font-size: clamp(1.05rem, 2.6vh, 1.35rem); color: var(--ink); }
-  .person small { color: var(--night); font-size: clamp(.58rem, 1.4vh, .7rem); letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
-  .person em { font-style: normal; color: var(--muted); font-size: clamp(.7rem, 1.6vh, .82rem); margin-top: .25rem; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  /* the folks column fills the slide height; the grid rows share it and each avatar scales to its cell */
+  .folks { align-self: stretch; min-height: 0; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+  .people { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); grid-template-rows: repeat(var(--rows, 2), minmax(0, 1fr)); gap: clamp(.4rem, 1.4vh, .9rem); flex: 0 1 auto; min-height: 0; max-height: calc(var(--rows, 2) * 300px); height: 100%; }
+  .person { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: .1rem; min-width: 0; min-height: 0; padding: clamp(.3rem, 1.2vh, .8rem) .4rem; background: #fff; border: 1px solid rgba(26,120,184,.14); border-radius: 18px; box-shadow: 0 10px 26px -20px rgba(26,120,184,.5); }
+  .person :global(svg) { flex: 1 1 0; min-height: 0; width: 100%; height: auto; }
+  .person strong { font-family: var(--font-display); font-size: clamp(.95rem, 2.3vh, 1.25rem); line-height: 1.1; color: var(--ink); }
+  .person small { color: var(--night); font-size: clamp(.55rem, 1.3vh, .68rem); letter-spacing: .08em; text-transform: uppercase; font-weight: 600; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .person em { display: none; font-style: normal; color: var(--muted); font-size: clamp(.7rem, 1.5vh, .8rem); margin-top: .15rem; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  /* descriptions only when there are few people and the screen is tall */
+  @media (min-height: 760px) { .people[data-n="1"] .person em, .people[data-n="2"] .person em, .people[data-n="3"] .person em, .people[data-n="4"] .person em { display: -webkit-box; } }
   .person.plain { justify-content: center; background: rgba(255,255,255,.6); }
   .initial { width: clamp(40px, 8vh, 56px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-size: 1.6rem; color: #fff; background: linear-gradient(135deg, var(--night-2), var(--night)); margin-bottom: .2rem; }
   .person.hl { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(242,199,92,.5), 0 18px 40px -18px rgba(26,120,184,.6); animation: pop .9s ease; }
@@ -171,11 +182,16 @@ const view = eras.map((e) => ({
     .slide[data-view="stories"] .folks { display: none; }
     .slide[data-view="people"] .tabs, .slide[data-view="people"] .story { display: none; }
     .slide { align-content: start; }
-    .person { padding: .6rem .4rem; }
-    .slide { grid-template-columns: 1fr; align-content: start; align-items: start; padding: .4rem 3.2rem 1.4rem; gap: .8rem; }
-    .people { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
-    .person em { display: none; }
-    .person :global(svg) { height: clamp(56px, 11vh, 90px); }
+    .person { padding: .35rem .25rem; border-radius: 14px; }
+    .slide { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); align-content: stretch; align-items: start; padding: .4rem 2.8rem .9rem; gap: .5rem; }
+    .slide[data-view="stories"] { grid-template-rows: minmax(0, 1fr); }
+    .folks { align-self: stretch; }
+    .people { grid-template-columns: repeat(var(--mcols, 3), minmax(0, 1fr)); grid-template-rows: repeat(var(--mrows, 3), minmax(0, 1fr)); max-height: calc(var(--mrows, 3) * 190px); gap: .35rem; }
+    .person em, .people[data-n] .person em { display: none; }
+    .person strong { font-size: clamp(.78rem, 2.1vh, .98rem); display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .people:not([data-n="4"]) .person small { display: none; }
+    .slide[data-view="people"] .sum { display: none; }
+    .tab { font-size: .72rem; padding: .28rem .6rem; }
     .info h2 { font-size: clamp(1.5rem, 4.2vh, 2.2rem); }
     .sum { font-size: .88rem; }
     .arrow { width: 38px; height: 38px; font-size: 1.5rem; top: 40%; }

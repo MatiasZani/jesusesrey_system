@@ -27,7 +27,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   nav a.active { color: var(--night); background: var(--gold); }
   .burger { display: none; background: none; border: 0; width: 44px; height: 44px; cursor: pointer; }
   .burger span { display: block; width: 24px; height: 2px; background: #fff; margin: 5px auto; transition: transform .3s, opacity .3s; }
-  @media (max-width: 960px) {
+  @media (max-width: 1120px) {
     .burger { display: block; }
     nav { position: fixed; inset: 72px 0 auto 0; flex-direction: column; background: rgba(26,120,184,.97); padding: 1rem 1.25rem 2rem; gap: .2rem;
       transform: translateY(-120%); transition: transform .35s ease; }

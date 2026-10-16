@@ -15,6 +15,7 @@ export const site = {
 export const nav = [
   { href: '/', label: 'Inicio' },
   { href: '/historia', label: 'Historia' },
+  { href: '/linea-del-tiempo', label: 'Línea del tiempo' },
   { href: '/nosotros', label: 'Nosotros' },
   { href: '/horarios', label: 'Horarios' },
   { href: '/ministerios', label: 'Ministerios' },

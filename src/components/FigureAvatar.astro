@@ -1,5 +1,6 @@
 ---
 import type { Figure } from '../data/figures';
+import { extraItems } from './figureItems';
 const { f } = Astro.props as { f: Figure };
 
 // ---- colour helpers ----
@@ -208,7 +209,8 @@ const items: Record<string, string> = {
   letter: `<g transform="translate(88.5 104) rotate(12)"><path d="M-9 12 H9 V32 Q4.5 30 0 32 Q-4.5 34 -9 32Z" fill="${u('pa')}" stroke="#8a7f66" stroke-width=".8"/><path d="M-6 17 H6 M-6 21 H6 M-6 25 H3" stroke="#8a7f66" stroke-width=".9" stroke-linecap="round"/><rect x="-9.4" y="-18" width="18.8" height="32" rx="9.4" fill="${u('pa')}" stroke="#8a7f66" stroke-width=".9"/><ellipse cx="0" cy="-18" rx="9.4" ry="3" fill="#e4d3a6" stroke="#8a7f66" stroke-width=".8"/><ellipse cx="0" cy="-18" rx="3.4" ry="1.1" fill="#b8a574"/><path d="M-9.4 -4 H9.4" stroke="#a8472f" stroke-width="2.6"/><circle cx="0" cy="-4" r="3.2" fill="#b3261e" stroke="#7a1812" stroke-width=".6"/><path d="M-1.4 -4.6 L0 -2.6 L1.4 -4.6" stroke="#f3b3ad" stroke-width=".7" fill="none"/></g>`,
 };
 
-const inner = defs + back + body + cloak + head + top + arms + (items[f.item] ?? '') + hands;
+const extra = extraItems(u, star, dk, lt);
+const inner = defs + back + body + cloak + head + top + arms + (items[f.item] ?? extra[f.item] ?? '') + hands;
 ---
 <svg viewBox="0 0 120 150" role="img" aria-label={`Ilustración de ${f.name}`}>
   <Fragment set:html={inner} />
