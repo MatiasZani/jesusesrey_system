@@ -1,9 +1,10 @@
 ---
 import Logo from './Logo.astro';
 import { nav, site } from '../data/site';
+const { solid = false } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
-<header class="hdr" id="hdr">
+<header class:list={['hdr', { solid }]} id="hdr" data-solid={solid ? '1' : undefined}>
   <div class="container bar">
     <a href="/" class="brand" aria-label={site.name}>
       <Logo size={54} />
@@ -42,7 +43,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   const hdr = document.getElementById('hdr')!;
   const burger = document.getElementById('burger')!;
   const menu = document.getElementById('menu')!;
-  const onScroll = () => hdr.classList.toggle('solid', window.scrollY > 30);
+  const onScroll = () => hdr.classList.toggle('solid', hdr.dataset.solid === '1' || window.scrollY > 30);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
   burger.addEventListener('click', () => {
