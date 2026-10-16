@@ -1,11 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
-import { schedule, days, site } from '../data/site';
+import { schedule, days, site, events } from '../data/site';
 const byDay = days.map((d) => ({ day: d, items: schedule.filter((a) => a.day === d) })).filter((d) => d.items.length);
 ---
-<Base title="Horarios" description="Días y horarios de las reuniones y actividades de la iglesia.">
-  <PageHero eyebrow="Horarios" title="Cuándo nos reunimos" lead="Todas las actividades de la semana. Cualquier día es un buen día para acercarte." />
+<Base title="Horarios y eventos" description="Días y horarios de las reuniones, y próximos eventos y actividades especiales de la iglesia.">
+  <PageHero eyebrow="Horarios y eventos" title="Cuándo nos reunimos" lead="Las actividades de la semana y los próximos eventos. Cualquier día es un buen día para acercarte." />
   <section class="section">
     <div class="container">
       <div class="week">
@@ -24,6 +24,17 @@ const byDay = days.map((d) => ({ day: d, items: schedule.filter((a) => a.day ===
         ))}
       </div>
       <p class="center muted" style="margin-top:2.5rem">Los horarios pueden cambiar en fechas especiales. Consultanos por <a href={`https://wa.me/${site.whatsapp}`}>WhatsApp</a>.</p>
+    </div>
+  </section>
+
+  <section class="section dark" id="eventos">
+    <div class="container center">
+      <span class="eyebrow">Próximos eventos</span>
+      <h2>Lo que viene</h2>
+      <div class="divider">✦</div>
+      <div class="grid cols-3">
+        {events.map((e) => <div class="card reveal"><span class="eyebrow">{e.date}</span><h3>{e.name}</h3><p>{e.desc}</p></div>)}
+      </div>
     </div>
   </section>
 </Base>

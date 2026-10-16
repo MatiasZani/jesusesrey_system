@@ -14,13 +14,10 @@ export const site = {
 
 export const nav = [
   { href: '/', label: 'Inicio' },
-  { href: '/historia', label: 'Historia' },
   { href: '/linea-del-tiempo', label: 'Línea del tiempo' },
   { href: '/nosotros', label: 'Nosotros' },
-  { href: '/horarios', label: 'Horarios' },
-  { href: '/ministerios', label: 'Ministerios' },
+  { href: '/horarios', label: 'Horarios y eventos' },
   { href: '/predicas', label: 'Prédicas' },
-  { href: '/eventos', label: 'Eventos' },
   { href: '/galeria', label: 'Galería' },
   { href: '/contacto', label: 'Contacto' },
 ];
@@ -36,17 +33,6 @@ export const schedule: Activity[] = [
   { day: 'Sábado', time: '18:00', name: 'Grupos en casas', desc: 'Pequeños grupos en distintos barrios.' },
 ];
 export const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-
-export const ministries = [
-  { icon: '🕊️', name: 'Alabanza y adoración', desc: 'Levantamos un sonido de gratitud a Dios.' },
-  { icon: '🧒', name: 'Niños', desc: 'Enseñanza bíblica creativa para los más chicos.' },
-  { icon: '🔥', name: 'Jóvenes', desc: 'Una generación que vive para Jesús.' },
-  { icon: '🌷', name: 'Mujeres', desc: 'Un espacio de encuentro, fe y apoyo.' },
-  { icon: '🛡️', name: 'Hombres', desc: 'Hombres que crecen en fe y carácter.' },
-  { icon: '🤝', name: 'Acción social', desc: 'Amor en acción para nuestra ciudad.' },
-  { icon: '🌍', name: 'Misiones', desc: 'Llevamos el evangelio más allá de nuestras paredes.' },
-  { icon: '📖', name: 'Discipulado', desc: 'Acompañamos a cada persona a crecer en Cristo.' },
-];
 
 export const beliefs = [
   { name: 'Las Sagradas Escrituras', desc: 'La Biblia es la Palabra de Dios, inspirada y suficiente.' },
