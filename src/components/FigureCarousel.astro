@@ -1,0 +1,85 @@
+---
+import { figures } from '../data/figures';
+const items: Record<string, string> = {
+  ark: '<path d="M10 120h34l-4 10H14z" fill="#6b4a2b"/><rect x="18" y="108" width="18" height="12" fill="#a77b4a"/><path d="M16 108l11-9 11 9z" fill="#6b4a2b"/>',
+  stars: '<g fill="#f2c75c"><path d="M14 66l2 5 5 .5-4 3.5 1.2 5-4.2-2.8-4.2 2.8 1.2-5-4-3.5 5-.5z"/><path d="M104 58l2 5 5 .5-4 3.5 1.2 5-4.2-2.8-4.2 2.8 1.2-5-4-3.5 5-.5z"/><path d="M100 100l1.6 4 4 .4-3 2.8 1 4-3.6-2.2-3.6 2.2 1-4-3-2.8 4-.4z"/></g>',
+  coat: '<path d="M42 98h36" stroke="#4c6fa5" stroke-width="3"/><path d="M40 106h40" stroke="#3b9fdc" stroke-width="3"/><path d="M38 114h44" stroke="#f2c75c" stroke-width="3"/>',
+  tablets: '<rect x="82" y="86" width="14" height="20" rx="7" fill="#e9e2d0" stroke="#8a7f66" stroke-width="1.5"/><rect x="98" y="86" width="14" height="20" rx="7" fill="#e9e2d0" stroke="#8a7f66" stroke-width="1.5"/><path d="M14 66v70" stroke="#6b4a2b" stroke-width="4" stroke-linecap="round"/>',
+  harp: '<path d="M88 76c14 0 20 14 14 30l-6 18" fill="none" stroke="#c9953a" stroke-width="4" stroke-linecap="round"/><path d="M88 76v46M94 80v40M100 90v28" stroke="#f2c75c" stroke-width="1.6"/>',
+  flame: '<path d="M98 66c10 8 12 16 6 24 4-2 8-6 8 4 0 12-8 18-16 18s-14-8-14-16c0-8 8-10 6-20 4 4 6 4 10-10z" fill="#ff8c1a"/><path d="M98 88c4 4 4 10 0 14-4-4-4-10 0-14z" fill="#ffd25c"/>',
+  scepter: '<path d="M98 76v56" stroke="#c9953a" stroke-width="3.5" stroke-linecap="round"/><circle cx="98" cy="72" r="6" fill="#f2c75c"/><circle cx="98" cy="72" r="2.2" fill="#c2418a"/>',
+  scroll: '<rect x="84" y="100" width="26" height="20" rx="3" fill="#efe3c2" stroke="#8a7f66" stroke-width="1.5"/><path d="M89 106h16M89 111h16M89 116h10" stroke="#8a7f66" stroke-width="1.4"/>',
+  heart: '<path d="M98 112s-14-8-14-17a8 8 0 0 1 14-5 8 8 0 0 1 14 5c0 9-14 17-14 17z" fill="#e65a7a"/>',
+  keys: '<g fill="none" stroke="#f2c75c" stroke-width="3" stroke-linecap="round"><circle cx="94" cy="92" r="6"/><path d="M94 98v28M94 114h8M94 122h6"/></g>',
+  letter: '<rect x="82" y="100" width="28" height="20" rx="2" fill="#fff" stroke="#8a7f66" stroke-width="1.5"/><path d="M82 102l14 11 14-11" fill="none" stroke="#8a7f66" stroke-width="1.5"/>',
+};
+---
+<div class="fc" id="fc">
+  <button class="nav prev" aria-label="Anterior" type="button">‹</button>
+  <div class="track" tabindex="0">
+    {figures.map((f) => (
+      <article class="fig">
+        <svg viewBox="0 0 120 150" role="img" aria-label={`Ilustración de ${f.name}`}>
+          <ellipse cx="60" cy="142" rx="34" ry="5" fill="rgba(18,48,74,.15)" />
+          <path d="M60 62c-20 0-30 10-32 30l-4 46c0 4 3 6 6 6h60c3 0 6-2 6-6l-4-46c-2-20-12-30-32-30z" fill={f.robe} />
+          <path d="M60 62c-8 0-14 3-14 8l14 14 14-14c0-5-6-8-14-8z" fill="rgba(255,255,255,.25)" />
+          <path d="M26 88c-4 10-6 20-4 28 3 2 8 0 9-4 1-8 3-16 5-22z" fill={f.robe} /><circle cx="26" cy="118" r="5.5" fill={f.skin} />
+          <path d="M94 88c4 10 6 20 4 28-3 2-8 0-9-4-1-8-3-16-5-22z" fill={f.robe} /><circle cx="94" cy="118" r="5.5" fill={f.skin} />
+          <Fragment set:html={items[f.item]} />
+          {f.beard && <path d="M44 42c0 22 8 30 16 30s16-8 16-30z" fill={f.hair} />}
+          <circle cx="60" cy="40" r="19" fill={f.skin} />
+          {f.beard && <path d="M43 44c2 20 9 28 17 28s15-8 17-28c-5 8-10 10-17 10s-12-2-17-10z" fill={f.hair} />}
+          {f.head === 'veil'
+            ? <path d="M60 18c-18 0-26 12-24 30 1 10-2 22-10 40h68c-8-18-11-30-10-40 2-18-6-30-24-30z M60 28c-9 0-14 6-14 14s5 16 14 16 14-8 14-16-5-14-14-14z" fill={f.robe} fill-rule="evenodd" />
+            : <path d="M41 38c0-14 8-22 19-22s19 8 19 22c-4-8-10-12-19-12s-15 4-19 12z" fill={f.hair} />}
+          {f.head === 'crown' && <path d="M44 24l5-9 6 7 5-10 5 10 6-7 5 9z" fill="#f2c75c" stroke="#c9953a" stroke-width="1" />}
+          <circle cx="53" cy="42" r="2" fill="#2a1c12" /><circle cx="67" cy="42" r="2" fill="#2a1c12" />
+          {f.beard
+            ? <path d="M54 52q6 3 12 0" stroke="#2a1c12" stroke-width="1.6" fill="none" stroke-linecap="round" />
+            : <path d="M54 51q6 5 12 0" stroke="#7a3b2a" stroke-width="1.8" fill="none" stroke-linecap="round" />}
+        </svg>
+        <h3>{f.name}</h3>
+        <span class="role">{f.role}</span>
+        <p>{f.desc}</p>
+      </article>
+    ))}
+  </div>
+  <button class="nav next" aria-label="Siguiente" type="button">›</button>
+</div>
+
+<style>
+  .fc { position: relative; }
+  .track { display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: .8rem .4rem 1.6rem; scrollbar-width: none; outline: none; text-align: center; }
+  .track::-webkit-scrollbar { display: none; }
+  .fig { flex: 0 0 min(270px, 78%); scroll-snap-align: center; background: #fff; border-radius: var(--radius); padding: 1.4rem 1.2rem 1.6rem; box-shadow: 0 12px 34px -18px rgba(26,120,184,.45); border: 1px solid rgba(26,120,184,.12); transition: transform .35s ease, box-shadow .35s; }
+  .fig:hover { transform: translateY(-6px); box-shadow: 0 22px 46px -18px rgba(26,120,184,.5); }
+  .fig svg { width: 150px; height: auto; margin: 0 auto .4rem; display: block; }
+  .fig h3 { margin: 0; font-size: 1.7rem; }
+  .role { display: block; color: var(--night); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; margin: .15rem 0 .6rem; }
+  .fig p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .nav { position: absolute; top: 42%; z-index: 2; width: 46px; height: 46px; border-radius: 50%; border: 0; cursor: pointer; background: var(--night); color: #fff; font-size: 1.7rem; line-height: 1; box-shadow: 0 8px 22px -8px rgba(0,0,0,.4); transition: transform .2s, background .2s; }
+  .nav:hover { background: var(--night-2); transform: scale(1.08); }
+  .prev { left: -14px; }
+  .next { right: -14px; }
+  @media (max-width: 640px) { .prev { left: -6px; } .next { right: -6px; } .nav { width: 40px; height: 40px; } }
+</style>
+
+<script>
+  const root = document.getElementById('fc')!;
+  const track = root.querySelector<HTMLElement>('.track')!;
+  const step = () => track.querySelector<HTMLElement>('.fig')!.offsetWidth + 19;
+  const go = (dir: number) => {
+    const end = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    if (dir > 0 && end) track.scrollTo({ left: 0 });
+    else if (dir < 0 && track.scrollLeft <= 4) track.scrollTo({ left: track.scrollWidth });
+    else track.scrollBy({ left: dir * step() });
+  };
+  root.querySelector('.prev')!.addEventListener('click', () => go(-1));
+  root.querySelector('.next')!.addEventListener('click', () => go(1));
+  track.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') go(1); if (e.key === 'ArrowLeft') go(-1); });
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let t = setInterval(() => go(1), 4500);
+    root.addEventListener('pointerenter', () => clearInterval(t));
+    root.addEventListener('pointerleave', () => { t = setInterval(() => go(1), 4500); });
+  }
+</script>

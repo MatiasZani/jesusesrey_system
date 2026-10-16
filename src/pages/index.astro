@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Particles from '../components/Particles.astro';
-import { site, schedule, ministries, events } from '../data/site';
+import FigureCarousel from '../components/FigureCarousel.astro';
+import { site, schedule, events } from '../data/site';
 const featured = schedule.filter((a) => a.day === 'Domingo').slice(0, 1).concat(schedule.filter((a) => a.day !== 'Domingo').slice(0, 2));
 ---
 <Base>
@@ -55,15 +56,11 @@ const featured = schedule.filter((a) => a.day === 'Domingo').slice(0, 1).concat(
 
   <section class="section">
     <div class="container center">
-      <span class="eyebrow">Ministerios</span>
-      <h2>Hay un lugar para cada uno</h2>
+      <span class="eyebrow">Referentes bíblicos</span>
+      <h2>Hombres y mujeres de fe</h2>
       <div class="divider">✦</div>
-      <div class="grid cols-4">
-        {ministries.slice(0, 4).map((m) => (
-          <div class="card reveal"><div class="icon">{m.icon}</div><h3>{m.name}</h3><p>{m.desc}</p></div>
-        ))}
-      </div>
-      <p style="margin-top:2rem"><a class="btn btn-dark" href="/ministerios">Ver todos</a></p>
+      <FigureCarousel />
+      <p style="margin-top:1rem"><a class="btn btn-dark" href="/ministerios">Ver ministerios</a></p>
     </div>
   </section>
 
