@@ -1,6 +1,7 @@
 ---
 import { figures } from '../data/figures';
 import FigureAvatar from './FigureAvatar.astro';
+import { slug } from '../data/timeline';
 const loop = [...figures, ...figures];
 ---
 <div class="fc" id="fc">
@@ -8,12 +9,12 @@ const loop = [...figures, ...figures];
   <div class="viewport">
     <div class="track" tabindex="0" aria-label="Personas de fe">
       {loop.map((f, i) => (
-        <article class="fig" aria-hidden={i >= figures.length ? 'true' : undefined}>
+        <a class="fig" href={`/linea-del-tiempo#${slug(f.name)}`} draggable="false" aria-label={`${f.name}: ver en la línea del tiempo`} aria-hidden={i >= figures.length ? 'true' : undefined} tabindex={i >= figures.length ? -1 : undefined}>
           <FigureAvatar f={f} />
           <h3>{f.name}</h3>
           <span class="role">{f.role}</span>
           <p>{f.desc}</p>
-        </article>
+        </a>
       ))}
     </div>
   </div>
@@ -26,7 +27,7 @@ const loop = [...figures, ...figures];
   .track { display: flex; gap: 1.2rem; overflow-x: auto; padding: .8rem .4rem 1.6rem; scrollbar-width: none; outline: none; text-align: center; touch-action: pan-x pan-y; cursor: grab; }
   .track::-webkit-scrollbar { display: none; }
   .track.drag { cursor: grabbing; user-select: none; }
-  .fig { flex: 0 0 270px; background: #fff; border-radius: var(--radius); padding: 1.4rem 1.2rem 1.6rem; box-shadow: 0 12px 34px -18px rgba(26,120,184,.45); border: 1px solid rgba(26,120,184,.12); transition: transform .35s ease, box-shadow .35s; }
+  .fig { flex: 0 0 270px; display: block; text-decoration: none; color: inherit; background: #fff; border-radius: var(--radius); padding: 1.4rem 1.2rem 1.6rem; box-shadow: 0 12px 34px -18px rgba(26,120,184,.45); border: 1px solid rgba(26,120,184,.12); transition: transform .35s ease, box-shadow .35s; }
   .fig:hover { transform: translateY(-6px); box-shadow: 0 22px 46px -18px rgba(26,120,184,.5); }
   .fig :global(svg) { width: 150px; height: auto; margin: 0 auto .4rem; display: block; }
   .fig h3 { margin: 0; font-size: 1.7rem; }
@@ -70,13 +71,18 @@ const loop = [...figures, ...figures];
   root.addEventListener('pointerenter', (e) => { if ((e as PointerEvent).pointerType === 'mouse') hover = true; });
   root.addEventListener('pointerleave', () => { hover = false; });
 
-  // mouse drag (touch uses native scrolling)
-  let startX = 0, startPos = 0;
+  // mouse drag (touch uses native scrolling); a plain click still follows the link
+  let startX = 0, startPos = 0, down = false, moved = false;
   track.addEventListener('pointerdown', (e) => {
     if (e.pointerType !== 'mouse') return;
-    dragging = true; startX = e.clientX; startPos = pos; track.classList.add('drag'); track.setPointerCapture(e.pointerId);
+    down = true; moved = false; startX = e.clientX; startPos = pos;
   });
-  track.addEventListener('pointermove', (e) => { if (dragging) { pos = startPos - (e.clientX - startX); } });
-  const end = () => { dragging = false; track.classList.remove('drag'); pause(); };
+  track.addEventListener('pointermove', (e) => {
+    if (!down) return;
+    if (!moved && Math.abs(e.clientX - startX) > 5) { moved = true; dragging = true; track.classList.add('drag'); track.setPointerCapture(e.pointerId); }
+    if (moved) pos = startPos - (e.clientX - startX);
+  });
+  const end = () => { down = false; dragging = false; track.classList.remove('drag'); pause(); };
   track.addEventListener('pointerup', end); track.addEventListener('pointercancel', end);
+  track.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
 </script>
